@@ -1,0 +1,21 @@
+{
+	"EmailAddresses":{
+		"EmailAddress":[
+			{
+				"EmailAddress":"david.davidson@example.net",
+				"EmailType":0
+			}
+		]
+	},
+	"FirstName":"David",
+	"Id":"1900",
+	"LastName":"Davidson",
+	"PhoneNumbers":{
+		"PhoneNumber":[
+			{
+				"Number":"tel:+13175551001",
+				"PhoneType":1
+			}
+		]
+	}
+}
