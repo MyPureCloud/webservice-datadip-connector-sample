@@ -12,12 +12,13 @@ using System.Text.RegularExpressions;
 using System.IO;
 using System.Threading;
 using inin.Bridge.WebServices.Datadip.Lib;
+using inin.Bridge.WebServices.Datadip.Impl.Model;
 
 namespace inin.Bridge.WebServices.Datadip.Impl
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple, IncludeExceptionDetailInFaults = true)]
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
-    public class SampleWebServicesImplementation : IWebServicesServer
+    public class SampleWebServicesImplementation : IWebServicesServer, ICustomAction
     {
         private List<Contact> contacts = new List<Contact>();
         private List<Case> cases = new List<Case>();
@@ -139,6 +140,10 @@ namespace inin.Bridge.WebServices.Datadip.Impl
                 {
                     throw new WebFaultException<string>("Thrown because error_internal_server was the custom attribute", HttpStatusCode.InternalServerError);
                 }
+                else if (req.CustomAttribute.Equals("sleep10"))
+                {
+                    Thread.Sleep(10000); //sleep 10 seconds
+                }
             }
 
             rc.Contact = retContact;
@@ -205,7 +210,7 @@ namespace inin.Bridge.WebServices.Datadip.Impl
             retVal.Account = retAccount;
             return retVal;
         }
-
+        
         public ResponseAccount GetAccountByContactId(ContactIdRequest cidr)
         {
             var contactId = cidr.ContactId;
@@ -248,6 +253,22 @@ namespace inin.Bridge.WebServices.Datadip.Impl
             return rc;
         }
 
+        public CodeStatus GetCodeStatus(CodeRequest cr)
+        {
+            if (cr.Code.Equals("12345")) {
+                CodeStatus cs = new CodeStatus {
+                    status = "winner",
+                    prize = "nothing"
+                };
+                return cs;
+            } 
+            CodeStatus losingCs = new CodeStatus {
+                status = "loser"
+            };
+            return losingCs;
+        }
+
+       
         private static string digitsOnly(String phoneNumber)
         {
             return NonDigitsExpression.Replace(phoneNumber, String.Empty);
