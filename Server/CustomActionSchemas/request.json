@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Code Request Schema",
+  "description": "Schema to send a code for evaluation.",
+  "type": "object",
+  "properties": {
+    "Endpoint": {
+      "type": "string",
+      "description": "the endpoint to query"
+    },
+    "Payload": {
+      "type": "object",
+      "description": "the payload to send",
+      "properties": {
+        "Code": {
+            "type": "string",
+            "description": "Your entry code"
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}
