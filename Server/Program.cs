@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ServiceModel.Web;
+using inin.Bridge.WebServices.Datadip.Lib;
+using System.ServiceModel;
 
 
 namespace inin.Bridge.WebServices.Datadip.Impl
@@ -25,7 +27,13 @@ namespace inin.Bridge.WebServices.Datadip.Impl
             Console.WriteLine("Storage directory: " + storageDir);
             Console.WriteLine("Listening on port: " + port);
             SampleWebServicesImplementation DemoServices = new SampleWebServicesImplementation(storageDir);
-            WebServiceHost _serviceHost = new WebServiceHost(DemoServices, new Uri("http://127.0.0.1:" + port));
+            Uri baseUri = new Uri("http://127.0.0.1:" + port);
+            Uri customUri = new Uri("http://127.0.0.1:" + port + "/custom");
+            WebServiceHost _serviceHost = new WebServiceHost(DemoServices);
+            _serviceHost.AddServiceEndpoint(typeof(IWebServicesServer),new WebHttpBinding(),baseUri);
+
+            _serviceHost.AddServiceEndpoint(typeof(ICustomAction),new WebHttpBinding(),customUri);
+            
 
             _serviceHost.Open();
             Console.ReadKey();

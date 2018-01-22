@@ -46,6 +46,9 @@
   <ItemGroup>
     <Compile Include="ContactAccountRelationship.cs" />
     <Compile Include="ContactAccountRelationshipRecord.cs" />
+    <Compile Include="ICustomAction.cs" />
+    <Compile Include="Model\CodeStatus.cs" />
+    <Compile Include="Model\CodeRequest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleWebServicesImplementation.cs" />
